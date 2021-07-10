@@ -159,6 +159,7 @@ class Encoder:
             model.setObjective(diff, grb.GRB.MAXIMIZE)
 
         # models are updated lazily (only after call to update or optimize)
+        model.setParam("Threads", 1)
         model.update()
         return model
 
