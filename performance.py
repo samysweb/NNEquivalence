@@ -689,6 +689,7 @@ class Encoder:
                 m.reset()
                 m.setObjective(m.getVarByName(v.name), grb.GRB.MAXIMIZE)
                 m.setParam('TimeLimit', self.opt_timeout)
+                m.setParam("Threads", 1)
                 m.optimize()
                 ub = m.ObjBound
 
@@ -696,6 +697,7 @@ class Encoder:
                 m.reset()
                 m.setObjective(m.getVarByName(v.name), grb.GRB.MINIMIZE)
                 m.setParam('TimeLimit', self.opt_timeout)
+                m.setParam("Threads", 1)
                 m.optimize()
                 lb = m.ObjBound
 
