@@ -51,8 +51,12 @@ class OnnxLoader(NNLoader):
                         bias = bias.ravel()
                         print('[Parsing] Reshaping bias')
             elif op == 'MatMul':
-                init = init_map[node.input[1]]
-                weight = numpy_helper.to_array(init)
+                if node.input[1] in init_map:
+                    init = init_map[node.input[1]]
+                    weight = numpy_helper.to_array(init)
+                else:
+                    init = init_map[node.input[0]]
+                    weight = numpy_helper.to_array(init).T
             elif op == 'Relu':
                 weights = np.vstack((weight, bias))
                 numNeurons = len(bias)
